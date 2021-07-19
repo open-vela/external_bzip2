@@ -14,6 +14,6 @@
 # limitations under the License.
 #
 
-ifneq ($(CONFIG_LIB_BZ),)
+ifneq ($(CONFIG_LIB_BZIP2),)
 CONFIGURED_APPS += $(APPDIR)/external/bzip2
 endif
