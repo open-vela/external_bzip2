@@ -1060,14 +1060,13 @@ static
 void applySavedTimeInfoToOutputFile ( Char *dstName )
 {
 #  if BZ_UNIX
-   IntNative      retVal;
    struct utimbuf uTimBuf;
 
    uTimBuf.actime = fileMetaInfo.st_atime;
    uTimBuf.modtime = fileMetaInfo.st_mtime;
 
-   retVal = utime ( dstName, &uTimBuf );
-   ERROR_IF_NOT_ZERO ( retVal );
+   (void) utime ( dstName, &uTimBuf );
+   /* utime() mayn't support on the embedded file system. */
 #  endif
 }
 
@@ -1075,10 +1074,8 @@ static
 void applySavedFileAttrToOutputFile ( IntNative fd )
 {
 #  if BZ_UNIX
-   IntNative retVal;
-
-   retVal = fchmod ( fd, fileMetaInfo.st_mode );
-   ERROR_IF_NOT_ZERO ( retVal );
+   (void) fchmod ( fd, fileMetaInfo.st_mode );
+   /* fchmod() mayn't support on the embedded file system. */
 
    (void) fchown ( fd, fileMetaInfo.st_uid, fileMetaInfo.st_gid );
    /* chown() will in many cases return with EPERM, which can
