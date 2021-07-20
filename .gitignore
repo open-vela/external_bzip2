@@ -5,5 +5,8 @@
 *.a
 *.lib
 *.exe
+.built
+.depend
+Make.dep
 bzip2
 bzip2recover
