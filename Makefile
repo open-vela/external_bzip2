@@ -16,6 +16,8 @@
 
 include $(APPDIR)/Make.defs
 
+CFLAGS += -Wno-undef
+
 CSRCS = \
   blocksort.c \
   bzlib.c \
