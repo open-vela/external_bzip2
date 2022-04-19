@@ -150,6 +150,8 @@
          ERROR_IF_MINUS_ONE ( retVal );               \
       } while ( 0 )
 
+#   define STDERR_FILENO _fileno(stderr)
+
 #endif /* BZ_LCCWIN32 */
 
 
