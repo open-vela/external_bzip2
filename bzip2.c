@@ -813,7 +813,7 @@ void mySignalCatcher ( IntNative n )
 }
 
 
-#  if defined(SIGSEGV) || defined(SIGBUS)
+#  ifdef SIGBUS
 /*---------------------------------------------*/
 static 
 void mySIGSEGVorSIGBUScatcher ( IntNative n )
@@ -1814,11 +1814,11 @@ IntNative main ( IntNative argc, Char *argv[] )
    i = j = 0; /* avoid bogus warning from egcs-1.1.X */
 
    /*-- Set up signal handlers for mem access errors --*/
-#  ifdef SIGSEGV
    signal (SIGSEGV, mySIGSEGVorSIGBUScatcher);
-#  endif
+#  if BZ_UNIX
 #  ifdef SIGBUS
    signal (SIGBUS,  mySIGSEGVorSIGBUScatcher);
+#  endif
 #  endif
 
    copyFileName ( inName,  (Char*)"(none)" );
@@ -1960,7 +1960,7 @@ IntNative main ( IntNative argc, Char *argv[] )
    if (srcMode == SM_F2F) {
       signal (SIGINT,  mySignalCatcher);
       signal (SIGTERM, mySignalCatcher);
-#     ifdef SIGHUP
+#     if BZ_UNIX
       signal (SIGHUP,  mySignalCatcher);
 #     endif
    }
